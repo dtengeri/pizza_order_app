@@ -5,6 +5,9 @@ import 'package:pizza_order_app/features/sign_up/domain/sign_up_repository.dart'
 class DummySignUpRepository extends SignUpRepository {
   @override
   Future<User> signUp({required SignUpForm signUpForm}) async {
-    return User(email: signUpForm.email);
+    return User(
+      name: signUpForm.name,
+      email: signUpForm.email,
+    );
   }
 }

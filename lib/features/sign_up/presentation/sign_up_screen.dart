@@ -24,7 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           content: Text('Signed up as ${user.email}'),
         ),
       );
-      router.go('/pizzas?email=${user.email}');
+      router.go('/pizzas?email=${user.email}&name=${user.name}');
     } catch (e) {
       scaffoldMessenger.showSnackBar(
         const SnackBar(
@@ -43,6 +43,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          TextField(
+            onChanged: (value) {
+              _signUpController.updateName(value);
+              setState(() {});
+            },
+            decoration: InputDecoration(
+              label: const Text('Name'),
+              errorText: _signUpController.signUpForm.nameErrorText,
+            ),
+          ),
           EmailTextField(
             onChanged: (value) {
               _signUpController.updateEmail(value);

@@ -18,7 +18,7 @@ class PizzaListScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              context.go('/profile?email=${user.email}');
+              context.go('/profile?email=${user.email}&name=${user.name}');
             },
             icon: const Icon(Icons.person),
           ),
@@ -27,7 +27,7 @@ class PizzaListScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Welcome ${user.email}!'),
+          Text('Welcome ${user.name}!'),
           ElevatedButton(
             onPressed: () {
               context.go('/');

@@ -16,10 +16,10 @@ class ProfileScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Welcome ${user.email}!'),
+          Text('Welcome ${user.name}!'),
           ElevatedButton(
             onPressed: () {
-              context.go('/pizzas?email=${user.email}');
+              context.go('/pizzas?email=${user.email}&name=${user.name}');
             },
             child: const Text('Back to pizzas'),
           ),

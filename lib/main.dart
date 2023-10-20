@@ -23,13 +23,19 @@ final _router = GoRouter(
     GoRoute(
       path: '/pizzas',
       builder: (context, state) => PizzaListScreen(
-        user: User(email: state.uri.queryParameters['email'] ?? ''),
+        user: User(
+          name: state.uri.queryParameters['name'] ?? '',
+          email: state.uri.queryParameters['email'] ?? '',
+        ),
       ),
     ),
     GoRoute(
       path: '/profile',
       builder: (context, state) => ProfileScreen(
-        user: User(email: state.uri.queryParameters['email'] ?? ''),
+        user: User(
+          name: state.uri.queryParameters['name'] ?? '',
+          email: state.uri.queryParameters['email'] ?? '',
+        ),
       ),
     ),
   ],

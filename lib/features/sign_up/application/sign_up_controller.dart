@@ -7,12 +7,17 @@ class SignUpController {
   final SignUpRepository _signUpRepository = DummySignUpRepository();
 
   final SignUpForm _signUpForm = SignUpForm(
+    name: '',
     email: '',
     password: '',
     confirmPassword: '',
   );
 
   SignUpForm get signUpForm => _signUpForm;
+
+  void updateName(String name) {
+    _signUpForm.name = name;
+  }
 
   void updateEmail(String email) {
     _signUpForm.email = email;
