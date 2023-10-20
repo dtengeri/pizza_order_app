@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pizza_order_app/features/core/domain/user.dart';
 
-class PizzaListScreen extends StatelessWidget {
-  const PizzaListScreen({
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({
     super.key,
     required this.user,
   });
@@ -13,21 +13,16 @@ class PizzaListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pizza Order'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              context.go('/profile?email=${user.email}');
-            },
-            icon: const Icon(Icons.person),
-          ),
-        ],
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Welcome ${user.email}!'),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/pizzas?email=${user.email}');
+            },
+            child: const Text('Back to pizzas'),
+          ),
           ElevatedButton(
             onPressed: () {
               context.go('/');
