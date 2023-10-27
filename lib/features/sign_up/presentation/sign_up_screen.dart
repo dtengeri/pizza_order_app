@@ -1,30 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pizza_order_app/features/core/presentation/email_text_field.dart';
+import 'package:pizza_order_app/features/core/presentation/name_text_field.dart';
 import 'package:pizza_order_app/features/core/presentation/password_text_field.dart';
 import 'package:pizza_order_app/features/sign_up/application/sign_up_controller.dart';
 
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends ConsumerWidget {
   const SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
-
-class _SignUpScreenState extends State<SignUpScreen> {
-  final SignUpController _signUpController = SignUpController();
-
-  Future<void> _onSubmit() async {
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final router = GoRouter.of(context);
+  Future<void> _onSubmit(WidgetRef ref) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(ref.context);
+    final router = GoRouter.of(ref.context);
+    final signUpController = ref.read(signUpControllerProvider.notifier);
     try {
-      final user = await _signUpController.signUp();
+      final user = await signUpController.signUp();
       scaffoldMessenger.showSnackBar(
         SnackBar(
           content: Text('Signed up as ${user.email}'),
         ),
       );
-      router.go('/pizzas?email=${user.email}&name=${user.name}');
+      router.go('/pizzas');
     } catch (e) {
       scaffoldMessenger.showSnackBar(
         const SnackBar(
@@ -35,7 +31,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final signUpForm = ref.watch(signUpControllerProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign up'),
@@ -43,40 +40,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            onChanged: (value) {
-              _signUpController.updateName(value);
-              setState(() {});
-            },
-            decoration: InputDecoration(
-              label: const Text('Name'),
-              errorText: _signUpController.signUpForm.nameErrorText,
-            ),
+          NameTextField(
+            onChanged: ref.read(signUpControllerProvider.notifier).updateName,
+            errorText: signUpForm.nameErrorText,
           ),
           EmailTextField(
-            onChanged: (value) {
-              _signUpController.updateEmail(value);
-              setState(() {});
-            },
-            errorText: _signUpController.signUpForm.emailErrorText,
+            onChanged: ref.read(signUpControllerProvider.notifier).updateEmail,
+            errorText: signUpForm.emailErrorText,
           ),
           PasswordTextField(
-            onChanged: (value) {
-              _signUpController.updatePassword(value);
-              setState(() {});
-            },
-            errorText: _signUpController.signUpForm.passwordErrorText,
+            onChanged:
+                ref.read(signUpControllerProvider.notifier).updatePassword,
+            errorText: signUpForm.passwordErrorText,
           ),
           PasswordTextField(
             label: 'Confirm password',
-            onChanged: (value) {
-              _signUpController.updateConfirmPassword(value);
-              setState(() {});
-            },
-            errorText: _signUpController.signUpForm.confirmPasswordErrorText,
+            onChanged: ref
+                .read(signUpControllerProvider.notifier)
+                .updateConfirmPassword,
+            errorText: signUpForm.confirmPasswordErrorText,
           ),
           ElevatedButton(
-            onPressed: _signUpController.signUpForm.isValid ? _onSubmit : null,
+            onPressed: signUpForm.isValid ? () => _onSubmit(ref) : null,
             child: const Text('Sign up'),
           ),
         ],

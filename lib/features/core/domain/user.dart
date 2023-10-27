@@ -1,8 +1,11 @@
-class User {
-  const User({
-    required this.name,
-    required this.email,
-  });
-  final String name;
-  final String email;
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'user.freezed.dart';
+
+@freezed
+class User with _$User {
+  factory User({
+    required String name,
+    required String email,
+  }) = _User;
 }
