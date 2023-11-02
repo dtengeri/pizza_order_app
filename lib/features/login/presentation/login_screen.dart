@@ -8,6 +8,27 @@ import 'package:pizza_order_app/features/login/application/login_controller.dart
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
+  Future<void> _onSubmit(WidgetRef ref) async {
+    final scaffoldMessenger = ScaffoldMessenger.of(ref.context);
+    final router = GoRouter.of(ref.context);
+    final loginController = ref.read(loginControllerProvider.notifier);
+    try {
+      await loginController.login();
+      scaffoldMessenger.showSnackBar(
+        const SnackBar(
+          content: Text('Welcome back!'),
+        ),
+      );
+      router.go('/pizzas');
+    } catch (e) {
+      scaffoldMessenger.showSnackBar(
+        const SnackBar(
+          content: Text('Failed to login'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginForm = ref.watch(loginControllerProvider);
@@ -33,8 +54,7 @@ class LoginScreen extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              ref.read(loginControllerProvider.notifier).login();
-              context.go('/pizzas');
+              _onSubmit(ref);
             },
             child: const Text('Login'),
           ),

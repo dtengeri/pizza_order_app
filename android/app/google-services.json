@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579641111222",
+    "project_id": "szte-pizza-order-app",
+    "storage_bucket": "szte-pizza-order-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579641111222:android:dbd35e530f93a5250b2c17",
+        "android_client_info": {
+          "package_name": "com.dtengeri.szte.pizza_order_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTOpSI3xz94kao9BVscAigwbLAQIhRjPQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

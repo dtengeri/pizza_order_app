@@ -38,7 +38,10 @@ class SignUpController extends Notifier<SignUpForm> {
     final user = await ref.read(signUpRepositoryProvider).signUp(
           signUpForm: state,
         );
-    ref.read(authControllerProvider.notifier).signIn(user);
+    await ref.read(authControllerProvider.notifier).signInWithEmailAndPassword(
+          email: state.email,
+          password: state.password,
+        );
     return user;
   }
 }
