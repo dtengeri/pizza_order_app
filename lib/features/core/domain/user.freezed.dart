@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$User {
+  String get uid => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
 
@@ -28,7 +29,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String name, String email});
+  $Res call({String uid, String name, String email});
 }
 
 /// @nodoc
@@ -44,10 +45,15 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? name = null,
     Object? email = null,
   }) {
     return _then(_value.copyWith(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -67,7 +73,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String email});
+  $Res call({String uid, String name, String email});
 }
 
 /// @nodoc
@@ -80,10 +86,15 @@ class __$$UserImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? name = null,
     Object? email = null,
   }) {
     return _then(_$UserImpl(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -99,8 +110,10 @@ class __$$UserImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UserImpl implements _User {
-  _$UserImpl({required this.name, required this.email});
+  _$UserImpl({required this.uid, required this.name, required this.email});
 
+  @override
+  final String uid;
   @override
   final String name;
   @override
@@ -108,7 +121,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(name: $name, email: $email)';
+    return 'User(uid: $uid, name: $name, email: $email)';
   }
 
   @override
@@ -116,12 +129,13 @@ class _$UserImpl implements _User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, email);
+  int get hashCode => Object.hash(runtimeType, uid, name, email);
 
   @JsonKey(ignore: true)
   @override
@@ -131,9 +145,13 @@ class _$UserImpl implements _User {
 }
 
 abstract class _User implements User {
-  factory _User({required final String name, required final String email}) =
-      _$UserImpl;
+  factory _User(
+      {required final String uid,
+      required final String name,
+      required final String email}) = _$UserImpl;
 
+  @override
+  String get uid;
   @override
   String get name;
   @override

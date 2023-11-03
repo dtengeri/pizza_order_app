@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pizza_order_app/features/core/presentation/app_drawer.dart';
 import 'package:pizza_order_app/features/pizza_order/application/pizza_list.dart';
 
 class PizzaListScreen extends ConsumerWidget {
@@ -24,6 +25,7 @@ class PizzaListScreen extends ConsumerWidget {
           ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

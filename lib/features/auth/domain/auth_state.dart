@@ -4,6 +4,10 @@ sealed class AuthState {
   const AuthState();
 }
 
+class Unknown extends AuthState {
+  const Unknown();
+}
+
 class Unauthenticated extends AuthState {
   const Unauthenticated();
 }

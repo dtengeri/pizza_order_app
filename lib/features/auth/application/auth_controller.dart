@@ -18,7 +18,7 @@ class AuthController extends Notifier<AuthState> {
         .watch()
         .listen((authState) => state = authState);
 
-    return const Unauthenticated();
+    return const Unknown();
   }
 
   Future<void> signInWithEmailAndPassword({

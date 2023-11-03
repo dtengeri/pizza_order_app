@@ -36,6 +36,7 @@ class FirebaseAuthRepository extends AuthRepository {
       } else {
         return Authenticated(
           user: core.User(
+            uid: user.uid,
             name: user.displayName ?? 'Unknown',
             email: user.email ?? 'Unknown',
           ),

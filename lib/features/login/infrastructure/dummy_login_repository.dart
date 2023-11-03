@@ -7,6 +7,10 @@ class DummyLoginRepository extends LoginRepository {
     required String email,
     required String password,
   }) async {
-    return User(name: 'John Doe', email: email);
+    return User(
+      uid: '1',
+      name: 'John Doe',
+      email: email,
+    );
   }
 }
