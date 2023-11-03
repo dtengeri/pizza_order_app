@@ -18,12 +18,13 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: '/',
     redirect: (context, state) {
       final isLoggingIn = state.uri.toString() == '/login';
+      final isSignUp = state.uri.toString() == '/sign-up';
       final isSplash = state.uri.toString() == '/';
       switch (authState) {
         case Unknown():
           return null;
         case Unauthenticated():
-          if (isLoggingIn) {
+          if (isLoggingIn || isSignUp) {
             return null;
           }
           return '/login';
