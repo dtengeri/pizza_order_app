@@ -14,11 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+UserProfile _$UserProfileFromJson(Map<String, dynamic> json) {
+  return _UserProfile.fromJson(json);
+}
+
 /// @nodoc
 mixin _$UserProfile {
+  String get uid => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
   List<DeliveryAddress> get addresses => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserProfileCopyWith<UserProfile> get copyWith =>
       throw _privateConstructorUsedError;
@@ -30,7 +36,7 @@ abstract class $UserProfileCopyWith<$Res> {
           UserProfile value, $Res Function(UserProfile) then) =
       _$UserProfileCopyWithImpl<$Res, UserProfile>;
   @useResult
-  $Res call({String? phone, List<DeliveryAddress> addresses});
+  $Res call({String uid, String? phone, List<DeliveryAddress> addresses});
 }
 
 /// @nodoc
@@ -46,10 +52,15 @@ class _$UserProfileCopyWithImpl<$Res, $Val extends UserProfile>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? phone = freezed,
     Object? addresses = null,
   }) {
     return _then(_value.copyWith(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -70,7 +81,7 @@ abstract class _$$UserProfileImplCopyWith<$Res>
       __$$UserProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? phone, List<DeliveryAddress> addresses});
+  $Res call({String uid, String? phone, List<DeliveryAddress> addresses});
 }
 
 /// @nodoc
@@ -84,10 +95,15 @@ class __$$UserProfileImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = null,
     Object? phone = freezed,
     Object? addresses = null,
   }) {
     return _then(_$UserProfileImpl(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -101,12 +117,19 @@ class __$$UserProfileImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$UserProfileImpl implements _UserProfile {
   const _$UserProfileImpl(
-      {required this.phone, required final List<DeliveryAddress> addresses})
+      {required this.uid,
+      required this.phone,
+      required final List<DeliveryAddress> addresses})
       : _addresses = addresses;
 
+  factory _$UserProfileImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserProfileImplFromJson(json);
+
+  @override
+  final String uid;
   @override
   final String? phone;
   final List<DeliveryAddress> _addresses;
@@ -119,7 +142,7 @@ class _$UserProfileImpl implements _UserProfile {
 
   @override
   String toString() {
-    return 'UserProfile(phone: $phone, addresses: $addresses)';
+    return 'UserProfile(uid: $uid, phone: $phone, addresses: $addresses)';
   }
 
   @override
@@ -127,27 +150,42 @@ class _$UserProfileImpl implements _UserProfile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserProfileImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.phone, phone) || other.phone == phone) &&
             const DeepCollectionEquality()
                 .equals(other._addresses, _addresses));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, phone, const DeepCollectionEquality().hash(_addresses));
+      runtimeType, uid, phone, const DeepCollectionEquality().hash(_addresses));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserProfileImplCopyWith<_$UserProfileImpl> get copyWith =>
       __$$UserProfileImplCopyWithImpl<_$UserProfileImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserProfileImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _UserProfile implements UserProfile {
   const factory _UserProfile(
-      {required final String? phone,
+      {required final String uid,
+      required final String? phone,
       required final List<DeliveryAddress> addresses}) = _$UserProfileImpl;
 
+  factory _UserProfile.fromJson(Map<String, dynamic> json) =
+      _$UserProfileImpl.fromJson;
+
+  @override
+  String get uid;
   @override
   String? get phone;
   @override

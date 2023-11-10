@@ -1,14 +1,24 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pizza_order_app/features/auth/application/auth_controller.dart';
+import 'package:pizza_order_app/features/auth/domain/auth_state.dart';
+import 'package:pizza_order_app/features/profile/domain/delivery_address.dart';
 import 'package:pizza_order_app/features/profile/domain/user_profile.dart';
 import 'package:pizza_order_app/features/profile/infrastructure/providers.dart';
 
 class ProfileController extends AsyncNotifier<UserProfile> {
   @override
-  Future<UserProfile> build() {
+  Future<UserProfile> build() async {
     final profileRepository = ref.watch(profileRepositoryProvider);
-    return profileRepository.getProfile();
+    final user = ref.watch(authControllerProvider);
+    return switch (user) {
+      Unknown() ||
+      Unauthenticated() =>
+        const UserProfile(uid: '', phone: '', addresses: []),
+      Authenticated(:final user) =>
+        await profileRepository.getProfile(user.uid),
+    };
   }
 
   Future<void> updateProfile(UserProfile profile) async {
@@ -16,6 +26,19 @@ class ProfileController extends AsyncNotifier<UserProfile> {
     state = await AsyncValue.guard(() {
       return profileRepository.updateProfile(profile);
     });
+  }
+
+  Future<void> addDeliveryAddress(DeliveryAddress address) {
+    switch (state) {
+      case AsyncData(:final value):
+        final updatedProfile = value.copyWith(
+          addresses: [...value.addresses, address],
+        );
+        return updateProfile(updatedProfile);
+
+      default:
+        throw StateError('Can not add address to $state');
+    }
   }
 }
 

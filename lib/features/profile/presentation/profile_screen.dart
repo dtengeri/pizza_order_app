@@ -6,7 +6,9 @@ import 'package:pizza_order_app/features/auth/domain/auth_state.dart';
 import 'package:pizza_order_app/features/core/domain/user.dart';
 import 'package:pizza_order_app/features/core/presentation/app_drawer.dart';
 import 'package:pizza_order_app/features/profile/application/profile_controller.dart';
+import 'package:pizza_order_app/features/profile/domain/delivery_address.dart';
 import 'package:pizza_order_app/features/profile/domain/user_profile.dart';
+import 'package:pizza_order_app/features/profile/presentation/add_address_dialog.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({
@@ -77,6 +79,31 @@ class _ProfileDetails extends ConsumerStatefulWidget {
 class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
   late final TextEditingController _phoneTextEditingController;
 
+  Future<void> _updateProfile() async {
+    await ref.read(profileControllerProvider.notifier).updateProfile(
+          widget.userProfile.copyWith(
+            phone: _phoneTextEditingController.text,
+          ),
+        );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Saved'),
+      ),
+    );
+  }
+
+  Future<void> _addAddress() async {
+    final deliveryAddress = await showDialog<DeliveryAddress>(
+      context: context,
+      builder: (contex) => const AddAddressDialog(),
+    );
+    if (deliveryAddress != null) {
+      ref
+          .read(profileControllerProvider.notifier)
+          .addDeliveryAddress(deliveryAddress);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -117,7 +144,7 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
                 child: Text('Addresses'),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: _addAddress,
                 icon: const Icon(Icons.add),
               ),
             ],
@@ -130,18 +157,21 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
                 return ListTile(
                   title: Text(address.city),
                   subtitle: Text(address.street),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.delete)),
+                    ],
+                  ),
                 );
               },
             ),
           ),
           ElevatedButton(
-            onPressed: () {
-              ref.read(profileControllerProvider.notifier).updateProfile(
-                    widget.userProfile.copyWith(
-                      phone: _phoneTextEditingController.text,
-                    ),
-                  );
-            },
+            onPressed: _updateProfile,
             child: const Text('Update'),
           ),
         ],

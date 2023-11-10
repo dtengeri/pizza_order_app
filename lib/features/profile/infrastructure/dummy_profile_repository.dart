@@ -4,8 +4,9 @@ import 'package:pizza_order_app/features/profile/domain/user_profile.dart';
 
 class DummyProfileRepository extends ProfileRepository {
   @override
-  Future<UserProfile> getProfile() async {
+  Future<UserProfile> getProfile(String uid) async {
     return const UserProfile(
+      uid: '1',
       phone: '+36301234567',
       addresses: [
         DeliveryAddress(
@@ -18,8 +19,8 @@ class DummyProfileRepository extends ProfileRepository {
   }
 
   @override
-  Future<UserProfile> create(UserProfile profile) async {
-    return profile;
+  Future<UserProfile> create(String uid) async {
+    return UserProfile(uid: uid, phone: '', addresses: []);
   }
 
   @override

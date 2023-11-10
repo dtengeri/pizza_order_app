@@ -14,12 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+DeliveryAddress _$DeliveryAddressFromJson(Map<String, dynamic> json) {
+  return _DeliveryAddress.fromJson(json);
+}
+
 /// @nodoc
 mixin _$DeliveryAddress {
   String get city => throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
   String get houseNumber => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DeliveryAddressCopyWith<DeliveryAddress> get copyWith =>
       throw _privateConstructorUsedError;
@@ -112,10 +117,13 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$DeliveryAddressImpl implements _DeliveryAddress {
   const _$DeliveryAddressImpl(
       {required this.city, required this.street, required this.houseNumber});
+
+  factory _$DeliveryAddressImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DeliveryAddressImplFromJson(json);
 
   @override
   final String city;
@@ -140,6 +148,7 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
                 other.houseNumber == houseNumber));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, city, street, houseNumber);
 
@@ -149,6 +158,13 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
   _$$DeliveryAddressImplCopyWith<_$DeliveryAddressImpl> get copyWith =>
       __$$DeliveryAddressImplCopyWithImpl<_$DeliveryAddressImpl>(
           this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DeliveryAddressImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _DeliveryAddress implements DeliveryAddress {
@@ -156,6 +172,9 @@ abstract class _DeliveryAddress implements DeliveryAddress {
       {required final String city,
       required final String street,
       required final String houseNumber}) = _$DeliveryAddressImpl;
+
+  factory _DeliveryAddress.fromJson(Map<String, dynamic> json) =
+      _$DeliveryAddressImpl.fromJson;
 
   @override
   String get city;
