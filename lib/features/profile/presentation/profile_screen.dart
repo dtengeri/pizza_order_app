@@ -75,12 +75,76 @@ class _ProfileDetails extends ConsumerStatefulWidget {
 }
 
 class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
+  late final TextEditingController _phoneTextEditingController;
+
+  @override
+  void initState() {
+    super.initState();
+    _phoneTextEditingController = TextEditingController(
+      text: widget.userProfile.phone,
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant _ProfileDetails oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _phoneTextEditingController.text = widget.userProfile.phone ?? '';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(
-        child: Text('TODO'),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          const CircleAvatar(
+            radius: 75,
+          ),
+          Text(
+            'Welcome ${widget.user.name}!',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
+          TextField(
+            controller: _phoneTextEditingController,
+            decoration: const InputDecoration(
+              labelText: 'Phone',
+            ),
+          ),
+          const Divider(),
+          Row(
+            children: [
+              const Expanded(
+                child: Text('Addresses'),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: widget.userProfile.addresses.length,
+              itemBuilder: (context, index) {
+                final address = widget.userProfile.addresses[index];
+                return ListTile(
+                  title: Text(address.city),
+                  subtitle: Text(address.street),
+                );
+              },
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              ref.read(profileControllerProvider.notifier).updateProfile(
+                    widget.userProfile.copyWith(
+                      phone: _phoneTextEditingController.text,
+                    ),
+                  );
+            },
+            child: const Text('Update'),
+          ),
+        ],
       ),
     );
   }
