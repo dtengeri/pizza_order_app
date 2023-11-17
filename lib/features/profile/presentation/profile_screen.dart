@@ -80,12 +80,13 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
   late final TextEditingController _phoneTextEditingController;
 
   Future<void> _updateProfile() async {
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     await ref.read(profileControllerProvider.notifier).updateProfile(
           widget.userProfile.copyWith(
             phone: _phoneTextEditingController.text,
           ),
         );
-    ScaffoldMessenger.of(context).showSnackBar(
+    scaffoldMessenger.showSnackBar(
       const SnackBar(
         content: Text('Saved'),
       ),
@@ -116,6 +117,12 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
   void didUpdateWidget(covariant _ProfileDetails oldWidget) {
     super.didUpdateWidget(oldWidget);
     _phoneTextEditingController.text = widget.userProfile.phone ?? '';
+  }
+
+  @override
+  void dispose() {
+    _phoneTextEditingController.dispose();
+    super.dispose();
   }
 
   @override
