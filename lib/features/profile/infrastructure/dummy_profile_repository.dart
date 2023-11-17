@@ -1,3 +1,4 @@
+import 'package:latlong2/latlong.dart';
 import 'package:pizza_order_app/features/profile/domain/delivery_address.dart';
 import 'package:pizza_order_app/features/profile/domain/profile_repository.dart';
 import 'package:pizza_order_app/features/profile/domain/user_profile.dart';
@@ -13,6 +14,7 @@ class DummyProfileRepository extends ProfileRepository {
           city: 'Szeged',
           street: 'Kossuth Lajos sgt.',
           houseNumber: '84',
+          coordinates: LatLng(46.253010, 20.141425),
         ),
       ],
     );

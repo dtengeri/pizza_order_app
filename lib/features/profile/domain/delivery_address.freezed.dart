@@ -23,6 +23,7 @@ mixin _$DeliveryAddress {
   String get city => throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
   String get houseNumber => throw _privateConstructorUsedError;
+  LatLng get coordinates => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,8 @@ abstract class $DeliveryAddressCopyWith<$Res> {
           DeliveryAddress value, $Res Function(DeliveryAddress) then) =
       _$DeliveryAddressCopyWithImpl<$Res, DeliveryAddress>;
   @useResult
-  $Res call({String city, String street, String houseNumber});
+  $Res call(
+      {String city, String street, String houseNumber, LatLng coordinates});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$DeliveryAddressCopyWithImpl<$Res, $Val extends DeliveryAddress>
     Object? city = null,
     Object? street = null,
     Object? houseNumber = null,
+    Object? coordinates = null,
   }) {
     return _then(_value.copyWith(
       city: null == city
@@ -69,6 +72,10 @@ class _$DeliveryAddressCopyWithImpl<$Res, $Val extends DeliveryAddress>
           ? _value.houseNumber
           : houseNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      coordinates: null == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as LatLng,
     ) as $Val);
   }
 }
@@ -81,7 +88,8 @@ abstract class _$$DeliveryAddressImplCopyWith<$Res>
       __$$DeliveryAddressImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String city, String street, String houseNumber});
+  $Res call(
+      {String city, String street, String houseNumber, LatLng coordinates});
 }
 
 /// @nodoc
@@ -98,6 +106,7 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
     Object? city = null,
     Object? street = null,
     Object? houseNumber = null,
+    Object? coordinates = null,
   }) {
     return _then(_$DeliveryAddressImpl(
       city: null == city
@@ -112,6 +121,10 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
           ? _value.houseNumber
           : houseNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      coordinates: null == coordinates
+          ? _value.coordinates
+          : coordinates // ignore: cast_nullable_to_non_nullable
+              as LatLng,
     ));
   }
 }
@@ -120,7 +133,10 @@ class __$$DeliveryAddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DeliveryAddressImpl implements _DeliveryAddress {
   const _$DeliveryAddressImpl(
-      {required this.city, required this.street, required this.houseNumber});
+      {required this.city,
+      required this.street,
+      required this.houseNumber,
+      this.coordinates = const LatLng(0, 0)});
 
   factory _$DeliveryAddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$DeliveryAddressImplFromJson(json);
@@ -131,10 +147,13 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
   final String street;
   @override
   final String houseNumber;
+  @override
+  @JsonKey()
+  final LatLng coordinates;
 
   @override
   String toString() {
-    return 'DeliveryAddress(city: $city, street: $street, houseNumber: $houseNumber)';
+    return 'DeliveryAddress(city: $city, street: $street, houseNumber: $houseNumber, coordinates: $coordinates)';
   }
 
   @override
@@ -145,12 +164,15 @@ class _$DeliveryAddressImpl implements _DeliveryAddress {
             (identical(other.city, city) || other.city == city) &&
             (identical(other.street, street) || other.street == street) &&
             (identical(other.houseNumber, houseNumber) ||
-                other.houseNumber == houseNumber));
+                other.houseNumber == houseNumber) &&
+            (identical(other.coordinates, coordinates) ||
+                other.coordinates == coordinates));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, city, street, houseNumber);
+  int get hashCode =>
+      Object.hash(runtimeType, city, street, houseNumber, coordinates);
 
   @JsonKey(ignore: true)
   @override
@@ -171,7 +193,8 @@ abstract class _DeliveryAddress implements DeliveryAddress {
   const factory _DeliveryAddress(
       {required final String city,
       required final String street,
-      required final String houseNumber}) = _$DeliveryAddressImpl;
+      required final String houseNumber,
+      final LatLng coordinates}) = _$DeliveryAddressImpl;
 
   factory _DeliveryAddress.fromJson(Map<String, dynamic> json) =
       _$DeliveryAddressImpl.fromJson;
@@ -182,6 +205,8 @@ abstract class _DeliveryAddress implements DeliveryAddress {
   String get street;
   @override
   String get houseNumber;
+  @override
+  LatLng get coordinates;
   @override
   @JsonKey(ignore: true)
   _$$DeliveryAddressImplCopyWith<_$DeliveryAddressImpl> get copyWith =>

@@ -28,11 +28,19 @@ class ProfileController extends AsyncNotifier<UserProfile> {
     });
   }
 
-  Future<void> addDeliveryAddress(DeliveryAddress address) {
+  Future<void> addDeliveryAddress(DeliveryAddress address) async {
     switch (state) {
       case AsyncData(:final value):
+        final coordinates = await ref.read(addressResolverProvider).resolve(
+              city: address.city,
+              street: address.street,
+              houseNumber: address.houseNumber,
+            );
         final updatedProfile = value.copyWith(
-          addresses: [...value.addresses, address],
+          addresses: [
+            ...value.addresses,
+            address.copyWith(coordinates: coordinates),
+          ],
         );
         return updateProfile(updatedProfile);
 

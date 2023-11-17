@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:pizza_order_app/features/profile/domain/delivery_address.dart';
 
 class AddAddressDialog extends StatefulWidget {
@@ -24,6 +25,7 @@ class _AddAddressDialogState extends State<AddAddressDialog> {
         city: _cityTextEditingController.text,
         street: _streetTextEditingController.text,
         houseNumber: _houseNumberTextEditingController.text,
+        coordinates: const LatLng(0, 0),
       ),
     );
   }

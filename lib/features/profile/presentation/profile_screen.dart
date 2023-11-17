@@ -9,6 +9,8 @@ import 'package:pizza_order_app/features/profile/application/profile_controller.
 import 'package:pizza_order_app/features/profile/domain/delivery_address.dart';
 import 'package:pizza_order_app/features/profile/domain/user_profile.dart';
 import 'package:pizza_order_app/features/profile/presentation/add_address_dialog.dart';
+import 'package:pizza_order_app/features/profile/presentation/delivery_address_card.dart';
+import 'package:pizza_order_app/features/profile/presentation/profile_avatar.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({
@@ -131,12 +133,9 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          const CircleAvatar(
-            radius: 75,
-          ),
+          const ProfileAvatar(),
           Text(
-            'Welcome ${widget.user.name}!',
-            style: Theme.of(context).textTheme.headlineSmall,
+            widget.user.name,
           ),
           TextField(
             controller: _phoneTextEditingController,
@@ -157,24 +156,8 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
             ],
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: widget.userProfile.addresses.length,
-              itemBuilder: (context, index) {
-                final address = widget.userProfile.addresses[index];
-                return ListTile(
-                  title: Text(address.city),
-                  subtitle: Text(address.street),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.edit)),
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.delete)),
-                    ],
-                  ),
-                );
-              },
+            child: _Addresses(
+              userProfile: widget.userProfile,
             ),
           ),
           ElevatedButton(
@@ -183,6 +166,27 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Addresses extends StatelessWidget {
+  const _Addresses({
+    required this.userProfile,
+  });
+
+  final UserProfile userProfile;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: userProfile.addresses.length,
+      itemBuilder: (context, index) {
+        final address = userProfile.addresses[index];
+        return DeliveryAddressCard(
+          address: address,
+        );
+      },
     );
   }
 }

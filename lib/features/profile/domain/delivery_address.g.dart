@@ -12,6 +12,9 @@ _$DeliveryAddressImpl _$$DeliveryAddressImplFromJson(
       city: json['city'] as String,
       street: json['street'] as String,
       houseNumber: json['houseNumber'] as String,
+      coordinates: json['coordinates'] == null
+          ? const LatLng(0, 0)
+          : LatLng.fromJson(json['coordinates'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$DeliveryAddressImplToJson(
@@ -20,4 +23,5 @@ Map<String, dynamic> _$$DeliveryAddressImplToJson(
       'city': instance.city,
       'street': instance.street,
       'houseNumber': instance.houseNumber,
+      'coordinates': instance.coordinates.toJson(),
     };
