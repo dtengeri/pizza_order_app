@@ -133,15 +133,30 @@ class _ProfileDetailsState extends ConsumerState<_ProfileDetails> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          const ProfileAvatar(),
-          Text(
-            widget.user.name,
-          ),
-          TextField(
-            controller: _phoneTextEditingController,
-            decoration: const InputDecoration(
-              labelText: 'Phone',
-            ),
+          Flex(
+            mainAxisSize: MainAxisSize.min,
+            direction: MediaQuery.sizeOf(context).width > 500
+                ? Axis.horizontal
+                : Axis.vertical,
+            children: [
+              Column(
+                children: [
+                  const ProfileAvatar(),
+                  Text(
+                    widget.user.name,
+                  ),
+                ],
+              ),
+              Flexible(
+                flex: 2,
+                child: TextField(
+                  controller: _phoneTextEditingController,
+                  decoration: const InputDecoration(
+                    labelText: 'Phone',
+                  ),
+                ),
+              ),
+            ],
           ),
           const Divider(),
           Row(

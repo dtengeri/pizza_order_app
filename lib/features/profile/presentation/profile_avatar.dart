@@ -25,12 +25,13 @@ class ProfileAvatar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final avatarAsyncValue = ref.watch(avatarControllerProvider);
+    final size = MediaQuery.sizeOf(context);
     return GestureDetector(
       onTap: () {
         _onTap(context, ref);
       },
       child: CircleAvatar(
-        radius: 75,
+        radius: size.width > 500 ? 40 : 75,
         backgroundImage: switch (avatarAsyncValue) {
           AsyncData(:final value) => value,
           _ => null,
