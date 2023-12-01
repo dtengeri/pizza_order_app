@@ -1,0 +1,9 @@
+{
+  "appName": "Pizza Rendelő",
+  "welcome": "Üdv!",
+  "login": "Bejelentkezés",
+  "or": "vagy",
+  "signUp": "Regisztráció",
+  "welcomeBack": "Üdvözlünk újra!",
+  "failedToLogin": "Sikertelen bejelentkezés"
+}

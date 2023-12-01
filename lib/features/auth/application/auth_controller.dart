@@ -13,10 +13,12 @@ class AuthController extends Notifier<AuthState> {
       _authStateChangesSubscription?.cancel();
     });
     _authStateChangesSubscription?.cancel();
-    _authStateChangesSubscription = ref
-        .watch(authRepositoryProvider)
-        .watch()
-        .listen((authState) => state = authState);
+    _authStateChangesSubscription =
+        ref.watch(authRepositoryProvider).watch().listen(
+      (authState) {
+        state = authState;
+      },
+    );
 
     return const Unknown();
   }

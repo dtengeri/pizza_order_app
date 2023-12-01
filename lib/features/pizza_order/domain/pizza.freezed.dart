@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Pizza {
   String get name => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  String get imageAsset => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PizzaCopyWith<Pizza> get copyWith => throw _privateConstructorUsedError;
@@ -28,7 +29,7 @@ abstract class $PizzaCopyWith<$Res> {
   factory $PizzaCopyWith(Pizza value, $Res Function(Pizza) then) =
       _$PizzaCopyWithImpl<$Res, Pizza>;
   @useResult
-  $Res call({String name, double price});
+  $Res call({String name, double price, String imageAsset});
 }
 
 /// @nodoc
@@ -46,6 +47,7 @@ class _$PizzaCopyWithImpl<$Res, $Val extends Pizza>
   $Res call({
     Object? name = null,
     Object? price = null,
+    Object? imageAsset = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -56,6 +58,10 @@ class _$PizzaCopyWithImpl<$Res, $Val extends Pizza>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      imageAsset: null == imageAsset
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -67,7 +73,7 @@ abstract class _$$PizzaImplCopyWith<$Res> implements $PizzaCopyWith<$Res> {
       __$$PizzaImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, double price});
+  $Res call({String name, double price, String imageAsset});
 }
 
 /// @nodoc
@@ -83,6 +89,7 @@ class __$$PizzaImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? price = null,
+    Object? imageAsset = null,
   }) {
     return _then(_$PizzaImpl(
       name: null == name
@@ -93,6 +100,10 @@ class __$$PizzaImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
+      imageAsset: null == imageAsset
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -100,16 +111,19 @@ class __$$PizzaImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$PizzaImpl implements _Pizza {
-  const _$PizzaImpl({required this.name, required this.price});
+  const _$PizzaImpl(
+      {required this.name, required this.price, required this.imageAsset});
 
   @override
   final String name;
   @override
   final double price;
+  @override
+  final String imageAsset;
 
   @override
   String toString() {
-    return 'Pizza(name: $name, price: $price)';
+    return 'Pizza(name: $name, price: $price, imageAsset: $imageAsset)';
   }
 
   @override
@@ -118,11 +132,13 @@ class _$PizzaImpl implements _Pizza {
         (other.runtimeType == runtimeType &&
             other is _$PizzaImpl &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.price, price) || other.price == price));
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name, price);
+  int get hashCode => Object.hash(runtimeType, name, price, imageAsset);
 
   @JsonKey(ignore: true)
   @override
@@ -133,12 +149,16 @@ class _$PizzaImpl implements _Pizza {
 
 abstract class _Pizza implements Pizza {
   const factory _Pizza(
-      {required final String name, required final double price}) = _$PizzaImpl;
+      {required final String name,
+      required final double price,
+      required final String imageAsset}) = _$PizzaImpl;
 
   @override
   String get name;
   @override
   double get price;
+  @override
+  String get imageAsset;
   @override
   @JsonKey(ignore: true)
   _$$PizzaImplCopyWith<_$PizzaImpl> get copyWith =>

@@ -7,5 +7,6 @@ class Pizza with _$Pizza {
   const factory Pizza({
     required String name,
     required double price,
+    required String imageAsset,
   }) = _Pizza;
 }

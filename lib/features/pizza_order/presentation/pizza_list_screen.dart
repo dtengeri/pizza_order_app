@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pizza_order_app/features/core/presentation/app_drawer.dart';
 import 'package:pizza_order_app/features/pizza_order/application/pizza_list.dart';
+import 'package:pizza_order_app/features/pizza_order/presentation/pizza_details_screen.dart';
 
 class PizzaListScreen extends ConsumerWidget {
   const PizzaListScreen({
@@ -35,6 +36,20 @@ class PizzaListScreen extends ConsumerWidget {
               itemCount: pizzas.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) => ListTile(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PizzaDetailsScreen(
+                        pizza: pizzas[index],
+                      ),
+                    ),
+                  );
+                },
+                leading: Image.asset(
+                  pizzas[index].imageAsset,
+                  width: 50,
+                  height: 50,
+                ),
                 title: Text(pizzas[index].name),
                 trailing: Text(
                   '\$${pizzas[index].price}',

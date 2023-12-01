@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pizza_order_app/features/core/presentation/email_text_field.dart';
@@ -8,22 +9,23 @@ import 'package:pizza_order_app/features/login/application/login_controller.dart
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
-  Future<void> _onSubmit(WidgetRef ref) async {
+  Future<void> _onSubmit(BuildContext context, WidgetRef ref) async {
     final scaffoldMessenger = ScaffoldMessenger.of(ref.context);
     final router = GoRouter.of(ref.context);
     final loginController = ref.read(loginControllerProvider.notifier);
+    final localization = AppLocalizations.of(context);
     try {
       await loginController.login();
       scaffoldMessenger.showSnackBar(
-        const SnackBar(
-          content: Text('Welcome back!'),
+        SnackBar(
+          content: Text(localization.welcomeBack),
         ),
       );
       router.go('/pizzas');
     } catch (e) {
       scaffoldMessenger.showSnackBar(
-        const SnackBar(
-          content: Text('Failed to login'),
+        SnackBar(
+          content: Text(localization.failedToLogin),
         ),
       );
     }
@@ -32,9 +34,10 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginForm = ref.watch(loginControllerProvider);
+    final localization = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pizza Order'),
+        title: Text(localization.appName),
       ),
       body: Column(
         children: [
@@ -42,7 +45,7 @@ class LoginScreen extends ConsumerWidget {
             Icons.local_pizza_outlined,
             size: 128,
           ),
-          const Text('Welcome!'),
+          Text(localization.welcome),
           EmailTextField(
             onChanged: ref.read(loginControllerProvider.notifier).updateEmail,
             errorText: loginForm.emailErrorText,
@@ -54,17 +57,17 @@ class LoginScreen extends ConsumerWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              _onSubmit(ref);
+              _onSubmit(context, ref);
             },
-            child: const Text('Login'),
+            child: Text(localization.login),
           ),
           const Divider(),
-          const Text('or'),
+          Text(localization.or),
           TextButton(
             onPressed: () {
               context.go('/sign-up');
             },
-            child: const Text('Sign up'),
+            child: Text(localization.signUp),
           ),
         ],
       ),
