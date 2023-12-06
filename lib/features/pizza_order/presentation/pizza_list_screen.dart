@@ -45,10 +45,13 @@ class PizzaListScreen extends ConsumerWidget {
                     ),
                   );
                 },
-                leading: Image.asset(
-                  pizzas[index].imageAsset,
-                  width: 50,
-                  height: 50,
+                leading: Hero(
+                  tag: pizzas[index].imageAsset,
+                  child: Image.asset(
+                    pizzas[index].imageAsset,
+                    width: 50,
+                    height: 50,
+                  ),
                 ),
                 title: Text(pizzas[index].name),
                 trailing: Text(
